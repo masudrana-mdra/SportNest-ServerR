@@ -8,7 +8,9 @@ const verifyToken = async (req, res, next) => {
         rawToken = authHeader.split(' ')[1];
     } else {
         // Fallback to cookies (token set by our auth controller or Better Auth)
-        rawToken = req.cookies['better-auth.session_token'] || req.cookies.token;
+        rawToken = req.cookies['__Secure-better-auth.session_token'] || 
+                   req.cookies['better-auth.session_token'] || 
+                   req.cookies.token;
     }
     if (!rawToken) return res.status(401).json({ message: 'Access denied. No token provided.' });
 
