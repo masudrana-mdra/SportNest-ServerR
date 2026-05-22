@@ -13,7 +13,12 @@ const app = express();
 // Middleware
 const allowedOrigins = process.env.FRONTEND_URL 
     ? process.env.FRONTEND_URL.split(',').map(o => o.trim()) 
-    : ['https://sportnest-client-coral.vercel.app'];
+    : ['https://sportnest-client-coral.vercel.app', 'http://localhost:3000'];
+
+// Always allow local development
+if (!allowedOrigins.includes('http://localhost:3000')) {
+    allowedOrigins.push('http://localhost:3000');
+}
 
 app.use(cors({
     origin: (origin, callback) => {
